@@ -22,10 +22,9 @@ Adding a table row:
 </span>
 ```
 
-2. The kvp span is always wrapped in a paragraph <p></p>.  The class name must match an entry in the CSS.  When deciding which class to use, inspect existing text to see what was used based on the type of text (actor, dialog, hymn, verse, etc.).
+2. The kvp span is always wrapped in a paragraph ```<p></p>```.  The class name must match an entry in the CSS.  When deciding which class to use, inspect existing text to see what was used based on the type of text (actor, dialog, hymn, verse, etc.).
 
-3. The enclosing paragraph is always wrapped in a <td></td>.   
+3. The enclosing paragraph is always wrapped in a table cell tag: ```<td></td>```.   
 
-4. In order for OLW to create a meta-template from the HTML, there must be a Greek <td class='leftCell'> and a second <td class='rightCell'>, which will contain the paragraph and kvp span for the text for Durham.
+4. In order for OLW to create a meta-template from the HTML, there must be a Greek ```<td class='leftCell'>``` and a second ```<td class='rightCell'>```, which will contain the paragraph and kvp span for the text for Durham.
 
-If you add
