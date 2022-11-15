@@ -1,5 +1,7 @@
 # Durham 
 
+This is what a table row looks like:
+
 ```
 <tr>
 <td class='leftCell'><p class='dialog'><span class='kvp' data-key='prayers_gr_GR_cog|enarxis02'>Εὐλογημένη ἡ Βασιλεία τοῦ Πατρὸς καὶ τοῦ Υἱοῦ καὶ τοῦ Ἁγίου Πνεύματος, νῦν καὶ ἀεί, καὶ εἰς τοὺς αἰῶνας τῶν αἰώνων.</span>
@@ -14,7 +16,7 @@ Deleting a table row:
 
 Adding a table row:
 
-1. The text visible to the user is always wrapped in a span whose class is kvp (key-value-pair):
+1. The text visible to the user is always wrapped in a span whose class is kvp (key-value-pair).  There must be a data-key property. The data-key value format is {topic}_{library}|{key}, where the library will be one of the ones created for Durham.  
 
 ```
 <span class='kvp' data-key='prayers_en_US_goa|enarxis02'>
