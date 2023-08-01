@@ -1,0 +1,23 @@
+\newpage
+~\vfill
+\thispagestyle{empty}
+
+\ifbool{haveLeftDomain}{\noindent \textbf{Primary Text\ }\ltCopyrightNotice{left}}{}%
+
+\ifbool{haveCenterDomain}{%
+    \noindent \textbf{Center Column Text\ } \ltCopyrightNotice{center}%
+}{}%
+
+\ifbool{haveRightDomain}{%
+    \noindent \textbf{Right Column Text\ }    \ltCopyrightNotice{right}.%
+}{}%
+
+\noindent \textbf{Overall Publication} \copyright\ \itSid{sys}{client.settings}{\clientCountry}{\clientAcronymn}{copyright} % Copyright notice
+
+\noindent \textsc{\textbf{Published} by \itSid{sys}{client.settings}{\clientCountry}{\clientAcronymn}{publisher}.} % Publisher
+
+\noindent \textsc{\textbf{Produced} on \today\ using the ocmc-liturgical-text package for \LaTeX}. This package was created by the Orthodox Christian Mission Center, \url{http://www.ocmc.org}. 
+
+\noindent \textbf{Disclaimer}: Due to variation in rubrics and local liturgical practices, some translations might not be identical in meaning to each other or to the original source text.
+
+\noindent \textbf{License}: Licensed under the Creative Commons Attribution- NonCommercial - NoDerivatives 4.0 International License (the ``License''). You may not use this file except in compliance with the License. You may obtain a copy of the License at \url{http://creativecommons.org}.

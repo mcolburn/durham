@@ -1,0 +1,68 @@
+% Author: Michael Colburn
+% Purpose: controls various options for typesetting liturgical text
+
+%==================================================
+\input{\ltSystemPath/iso/res.iso.language.codes}
+\def\ltClientPath{your.choices/ke.oak}
+\input{\ltClientPath/settings}
+%==================================================
+% Actors on separate line?
+%
+% Controls whether the actor will appear on its on line.
+% For example, 
+%
+% If enabled:
+% Priest: In the name of the Father and of the Son...
+%
+% If not enabled:
+% Priest
+% In the name of the Father and of the Son...
+%
+%\def\actorOnSeparateLine{} % comment out to display actor on separate line
+% 
+%==================================================
+
+
+%==================================================
+%=========================================================
+% Global Settings
+%=========================================================
+% set page margin:
+\geometry{margin=1in} % see package geometry for options
+% set paragraph indent.  
+\setlength{\parindent}{0em}
+\setlength{\JustifyingParindent}{0em}
+% set spacing between paragraphs.  0.5em is usual
+\setlength{\parskip}{1em}
+\setlength{\JustifyingParfillskip}{1em}
+
+% memoir package settings
+\setsecnumdepth{none}
+\maxsecnumdepth{none}
+\titleformat{\section}[block]{\color{blue}\Large\bfseries\filcenter}{}{0.5em}{}
+\pagestyle{ruled}
+
+% header and footer settings
+% \leftmark is the chapter title
+% \rightmark is the section title.
+\makeevenhead{ruled}{}{\rightmark}{\thepage}
+\makeoddhead{ruled}{\thepage}{\leftmark}{}
+\makeevenfoot{ruled}{}{}{}
+\makeoddfoot{ruled}{}{}{}
+\setbool{subsectionInHeader}{true}% false to turn off 
+{\addtolength{\beforechapskip}{1\baselineskip}
+{\addtolength{\afterchapskip}{1\baselineskip}
+
+% to help with avoiding overfull 
+% hbox with narrow columns.
+% Note that the max is 10000 for h or vbadness.
+% If you set to 10000 completely ignores.
+% 9999 is tolerant of anything up to 10000
+\def\mysloppy{%
+  \tolerance=9999
+  \setlength{\emergencystretch}{0.5em}
+  \hfuzz 1pt
+  \vfuzz=\hfuzz
+  \hbadness=9999
+  \vbadness=\maxdimen
+}

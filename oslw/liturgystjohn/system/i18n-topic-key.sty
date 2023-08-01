@@ -1,0 +1,104 @@
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{i18n-topic-key}[2016/07/20 i18n topic-key Package]
+
+\RequirePackage{pgfkeys}
+\RequirePackage{xparse}
+\RequirePackage{etoolbox}
+\RequirePackage{color}
+\RequirePackage{xcolor}
+
+%% FLAGS
+%% Show keys option
+\newbool{showresourceid}
+\boolfalse{showresourceid}
+\DeclareOption{debug}{
+    \booltrue{showresourceid}
+}
+
+\ProcessOptions\relax
+
+\colorlet{RED}{red} % to handle color in headers, sections, chapters, etc.
+
+%=======================================
+% RE-DEFINE pgfkeys ERROR HANDLER
+%=======================================
+\pgfkeys{
+    /handlers/.unknown/.code={%
+        \PackageError{%
+        i18n-topic-keys}{Unknown key ‘\pgfkeyscurrentkey’.%
+        }{%
+        Open the appropriate resource file and add \string\itId{key}{value} or if there is a typing error, fix it.%
+        }%
+    }%
+}
+
+\newcommand\itThrowErrorIfNotFound[5]{
+\pgfkeysifdefined{/#1/#2/#3/#4/#5}{%
+true
+}{%
+false
+}%
+}
+%=======================================
+% DOMAIN MANAGEMENT
+%=======================================
+\newcommand{\itPrimaryDomain}{/gr/gr/cog}%
+\newcommand{\itSetPrimaryDomain}[3]{%
+    \renewcommand{\itPrimaryDomain}{/#1/#2/#3}%
+}
+%=======================================
+% TOPIC and RESOURCE DECLARATION
+%=======================================
+\newcommand{\itCurrentTopic}{}%
+\newcommand{\itTopic}[4]{%
+    \renewcommand{\itCurrentTopic}{/#1/#2/#3/#4}%
+}
+%% The old way works just fine. 
+%\newcommand{\itId}[2]{%
+%\pgfkeys{%
+%\itCurrentTopic/#1/.initial={#2}}%
+%}
+
+% The new way supports \itId fully specified
+% or \itId with just a key.  For the latter
+% it is necessary to first set \itTopic.
+\DeclareDocumentCommand\itId{m m g g g g}{%
+    \IfValueTF {#3} {%
+        \global\itTopic{#1}{#2}{#3}{#4}%
+        \pgfkeys{%
+        \itCurrentTopic/#5/.initial={#6}}%
+    }{%
+        \pgfkeys{%
+        \itCurrentTopic/#1/.initial={#2}}%
+    }%
+}
+%=======================================
+% VALUE RETRIEVAL
+%========================================
+% Specific ID: fully specified with 
+% language, country, realm, topic
+\newcommand{\itSid}[5]{% value from ID
+\pgfkeysifdefined{/#1/#2/#3/#4/#5}{\pgfkeysvalueof{/#1/#2/#3/#4/#5}}{\pgfkeys{/#1/#2/#3/#4/#5}}%
+\ifbool{showresourceid}{%
+\emph{\color{blue}{\newline from: #1 #2 #3\newline#4\newline#5\newline}}%
+}{% else
+}%
+}
+% Relative ID: relative to previously set domain
+\newcommand{\itRid}[2]{%
+\pgfkeysifdefined{\itPrimaryDomain/#1/#2}{\pgfkeysvalueof{\itPrimaryDomain/#1/#2}}{\pgfkeys{\itPrimaryDomain/#1/#2}}%
+\ifbool{showresourceid}{%
+\emph{\color{red}{\newline from: \itPrimaryDomain\newline#1\newline #2\newline}}%
+}{% else
+}%
+}
+
+\newcommand\itDebugOn{%
+\booltrue{showresourceid}
+}
+\newcommand\itDebugOff{%
+\boolfalse{showresourceid}
+}
+
+
+\endinput
